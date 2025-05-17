@@ -32,4 +32,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'data' => Tweet::with('user')->get()
         ], 200);
     });
+
+    Route::get('tweet/{id}', function ($id) {
+        $tweet = Tweet::with('user')->find($id);
+        if (!$tweet) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Tweet não encontrado',
+                'data' => null
+            ], 404);
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Tweet recuperado com sucesso',
+            'data' => $tweet
+        ], 200);
+    });
 });
