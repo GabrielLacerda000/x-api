@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return response()->json([
             'status' => 'success',
             'message' => 'Tweets retrieved successfully',
-            'data' => Tweet::all()
+            'data' => Tweet::with('user')->get()
         ], 200);
     });
 });
